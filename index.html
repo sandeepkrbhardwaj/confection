@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Confection3D | Interactive 3D Sweet Shop</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Design and order your favorite sweets in fully interactive 3D! Customize donuts, cupcakes, and macarons at Confection3D.">
+  <meta name="keywords" content="sweets, 3d sweet shop, custom donuts, customized cupcakes, macaron bakery, firebase shop">
+  <meta name="author" content="Confection3D">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,500&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome or Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <!-- Global CSS Styling -->
+  <link rel="stylesheet" href="css/index.css">
+
+  <!-- Import Map for ES Modules -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.147.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.147.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+
+  <!-- Ambient Glowing Blobs -->
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+
+  <!-- Background 3D Ambient Canvas (for Home Hero or general decoration) -->
+  <div id="ambient-canvas-container"></div>
+
+  <!-- Header & Navigation -->
+  <header class="navbar-container">
+    <nav class="navbar">
+      <a href="#home" class="nav-logo" id="nav-logo-btn">
+        <span class="logo-icon">🧁</span>
+        <span class="logo-text">Confection<span class="highlight">3D</span></span>
+      </a>
+
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#home" class="nav-link active" data-view="home">Home</a></li>
+        <li><a href="#shop" class="nav-link" data-view="shop">Shop</a></li>
+        <li><a href="#customizer" class="nav-link" data-view="customizer">3D Studio</a></li>
+        <li><a href="#profile" class="nav-link" data-view="profile" id="nav-profile-link">Profile</a></li>
+        <li class="admin-only" style="display: none;"><a href="#admin" class="nav-link admin-nav-btn" data-view="admin">Admin ⚙️</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <!-- Profile quick status -->
+        <button class="nav-btn profile-btn" id="nav-profile-btn" title="Profile">
+          <i data-lucide="user"></i>
+          <span class="profile-name-tag" id="profile-name-tag">Login</span>
+        </button>
+
+        <!-- Cart trigger -->
+        <button class="nav-btn cart-trigger" id="cart-trigger-btn" title="Open Cart">
+          <div class="cart-icon-wrapper">
+            <i data-lucide="shopping-bag"></i>
+            <span class="cart-badge" id="cart-badge-count">0</span>
+          </div>
+          <span class="cart-total-tag" id="cart-total-tag">$0.00</span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main View Area (Dynamic Pages Mounted Here) -->
+  <main id="app-view">
+    <div class="page-loader">
+      <div class="spinner"></div>
+      <p>Baking sweet digital experiences...</p>
+    </div>
+  </main>
+
+  <!-- Cart Drawer (Slide out) -->
+  <div class="cart-drawer-overlay" id="cart-drawer-overlay"></div>
+  <div class="cart-drawer" id="cart-drawer">
+    <div class="cart-drawer-header">
+      <h3>Your Sweet Bag</h3>
+      <button class="close-btn" id="close-cart-btn"><i data-lucide="x"></i></button>
+    </div>
+    
+    <div class="cart-items" id="cart-items-list">
+      <!-- Dynamic list -->
+      <div class="empty-cart-state">
+        <span class="empty-cart-icon">🍩</span>
+        <h4>Your bag is empty!</h4>
+        <p>Explore the studio and custom design your own sweets.</p>
+        <a href="#shop" class="btn btn-primary" id="cart-explore-btn">Browse Shop</a>
+      </div>
+    </div>
+
+    <div class="cart-drawer-footer">
+      <div class="cart-price-summary">
+        <div class="price-row">
+          <span>Subtotal</span>
+          <span id="cart-subtotal">$0.00</span>
+        </div>
+        <div class="price-row">
+          <span>Baking & Shipping</span>
+          <span class="highlight-free">FREE</span>
+        </div>
+        <hr class="divider">
+        <div class="price-row grand-total">
+          <span>Grand Total</span>
+          <span id="cart-grand-total">$0.00</span>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-checkout" id="checkout-btn">
+        <span>Proceed to Checkout</span>
+        <i data-lucide="arrow-right"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Checkout Modal (Dynamic Checkout Form) -->
+  <div class="modal-overlay" id="checkout-modal">
+    <div class="form-modal-card glass-panel" style="max-width: 600px; width: 95%; max-height: 90vh; overflow-y: auto;">
+      <div id="checkout-form-content">
+        <h3>Finalize Your Sweet Order</h3>
+        <p style="color: var(--text-muted); margin-bottom: 20px; font-size: 0.95rem;">Enter your shipping and payment details to send your custom sweets to the oven.</p>
+        
+        <form id="checkout-billing-form">
+          <h4 style="color: var(--accent-color); font-size: 1rem; text-transform: uppercase; margin-bottom: 12px; border-bottom: 1px solid var(--border-light); padding-bottom: 5px;">1. Shipping Address</h4>
+          
+          <div class="auth-form-group">
+            <label for="checkout-fullname">Full Name</label>
+            <input type="text" id="checkout-fullname" class="input-field" required placeholder="John Doe">
+          </div>
+          
+          <div class="auth-form-group">
+            <label for="checkout-street">Street Address</label>
+            <input type="text" id="checkout-street" class="input-field" required placeholder="123 Sweet Lane">
+          </div>
+          
+          <div class="form-row-2">
+            <div class="auth-form-group">
+              <label for="checkout-city">City</label>
+              <input type="text" id="checkout-city" class="input-field" required placeholder="Confection City">
+            </div>
+            <div class="form-row-2">
+              <div class="auth-form-group">
+                <label for="checkout-state">State</label>
+                <input type="text" id="checkout-state" class="input-field" required placeholder="CA">
+              </div>
+              <div class="auth-form-group">
+                <label for="checkout-zip">ZIP Code</label>
+                <input type="text" id="checkout-zip" class="input-field" required placeholder="90210">
+              </div>
+            </div>
+          </div>
+          
+          <h4 style="color: var(--accent-color); font-size: 1rem; text-transform: uppercase; margin-top: 25px; margin-bottom: 12px; border-bottom: 1px solid var(--border-light); padding-bottom: 5px;">2. Payment Info (Simulated)</h4>
+          
+          <div class="auth-form-group">
+            <label for="checkout-card">Card Number</label>
+            <input type="text" id="checkout-card" class="input-field" required placeholder="4111 2222 3333 4444" pattern="[0-9\\s]{13,19}">
+          </div>
+          
+          <div class="form-row-2">
+            <div class="auth-form-group">
+              <label for="checkout-exp">Expiry (MM/YY)</label>
+              <input type="text" id="checkout-exp" class="input-field" required placeholder="12/28">
+            </div>
+            <div class="auth-form-group">
+              <label for="checkout-cvv">CVV</label>
+              <input type="password" id="checkout-cvv" class="input-field" required placeholder="123" maxlength="4">
+            </div>
+          </div>
+          
+          <div class="checkout-summary-box glass-panel" style="margin-top: 25px; padding: 20px; border-radius: var(--border-radius-md); background: rgba(255,255,255,0.02);">
+            <div class="price-row" style="margin-bottom: 8px;">
+              <span>Total Price:</span>
+              <strong style="color: var(--accent-color); font-size: 1.25rem;" id="checkout-summary-total">$0.00</strong>
+            </div>
+            <p style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.3;">By clicking place order, your custom sweets formulas will be synchronized with our Firestore pipeline.</p>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" id="btn-close-checkout">Back to Bag</button>
+            <button type="submit" class="btn btn-primary">
+              <i data-lucide="check-circle"></i>
+              <span>Place Your Order</span>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Checkout Processing Screen -->
+      <div id="checkout-processing-content" style="display: none; text-align: center; padding: 40px 0;">
+        <div class="chef-loader">
+          <span style="font-size: 4rem; display: inline-block; animation: bounce 1s infinite alternate;">👨‍🍳</span>
+          <div class="spinner" style="margin: 20px auto;"></div>
+        </div>
+        <h3 id="checkout-step-title" style="margin-bottom: 10px;">Sending instructions to the kitchen...</h3>
+        <p id="checkout-step-subtitle" style="color: var(--text-muted);">Synchronizing cloud databases</p>
+      </div>
+
+      <!-- Checkout Success Screen -->
+      <div id="checkout-success-content" style="display: none; text-align: center; padding: 40px 0;">
+        <span style="font-size: 5rem; display: block; margin-bottom: 20px; animation: scaleUp 0.5s ease;">🎉</span>
+        <h2 style="font-family: var(--font-display); font-size: 2.2rem; margin-bottom: 10px;">Order Confirmed!</h2>
+        <p style="color: var(--text-muted); margin-bottom: 15px;" id="checkout-success-order-id">Order ID: #12345</p>
+        <p style="max-width: 400px; margin: 0 auto 30px auto; line-height: 1.5;">
+          Our baking chefs have received your formulas! You can track the progress of your sweets in your user profile.
+        </p>
+        <button class="btn btn-primary" id="btn-checkout-success-done">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Main Script Injection -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
