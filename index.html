@@ -1,27 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-IN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Confectionsweetshop</title>
+  <title>Mithai3D | Premium Interactive 3D Indian Sweet Halwai Studio</title>
   
-  <!-- SEO Meta Tags -->
-  <meta name="description" content="Design and order your favorite sweets in fully interactive 3D! Customize donuts, cupcakes, and macarons at Confection3D.">
-  <meta name="keywords" content="sweets, 3d sweet shop, custom donuts, customized cupcakes, macaron bakery, firebase shop">
-  <meta name="author" content="Confection3D">
+  <meta name="description" content="Design, customize, and order luxury Indian sweets in fully interactive 3D! Formulate your own premium Rasmalai, Rasgulla, and Kaju Katli with custom silver vark, saffron infusions, and pistachio toppings at Mithai3D.">
+  <meta name="keywords" content="mithai, 3d sweet shop, custom rasmalai, premium rasgulla online, custom kaju katli, luxury indian sweets, luxury halwai studio, threejs sweet customizer, firestore sweets india">
+  <meta name="author" content="Mithai3D Private Limited">
   
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,500&display=swap" rel="stylesheet">
   
-  <!-- Font Awesome or Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
   
-  <!-- Global CSS Styling -->
   <link rel="stylesheet" href="index.css">
 
-  <!-- Import Map for ES Modules -->
   <script type="importmap">
     {
       "imports": {
@@ -33,72 +28,60 @@
 </head>
 <body>
 
-  <!-- Ambient Glowing Blobs -->
-  <div class="blob blob-1"></div>
-  <div class="blob blob-2"></div>
-  <div class="blob blob-3"></div>
+  <div class="blob blob-1" style="background: rgba(255, 153, 51, 0.15);"></div> <div class="blob blob-2" style="background: rgba(78, 159, 61, 0.12);"></div>  <div class="blob blob-3" style="background: rgba(212, 175, 55, 0.15);"></div> <div id="ambient-canvas-container"></div>
 
-  <!-- Background 3D Ambient Canvas (for Home Hero or general decoration) -->
-  <div id="ambient-canvas-container"></div>
-
-  <!-- Header & Navigation -->
   <header class="navbar-container">
     <nav class="navbar">
       <a href="#home" class="nav-logo" id="nav-logo-btn">
-        <span class="logo-icon">🧁</span>
-        <span class="logo-text">Confection<span class="highlight">3D</span></span>
+        <span class="logo-icon">✨</span>
+        <span class="logo-text">Mithai<span class="highlight">3D</span></span>
       </a>
 
       <ul class="nav-links" id="nav-links">
-        <li><a href="#home" class="nav-link active" data-view="home">Home</a></li>
-        <li><a href="#shop" class="nav-link" data-view="shop">Shop</a></li>
-        <li><a href="#customizer" class="nav-link" data-view="customizer">3D Studio</a></li>
-        <li><a href="#profile" class="nav-link" data-view="profile" id="nav-profile-link">Profile</a></li>
-        <li class="admin-only" style="display: none;"><a href="#admin" class="nav-link admin-nav-btn" data-view="admin">Admin ⚙️</a></li>
+        <li><a href="#home" class="nav-link active" data-view="home">Shahi Home</a></li>
+        <li><a href="#shop" class="nav-link" data-view="shop">The Bazaar</a></li>
+        <li><a href="#customizer" class="nav-link" data-view="customizer">3D Karigar Studio</a></li>
+        <li><a href="#profile" class="nav-link" data-view="profile" id="nav-profile-link">My Account</a></li>
+        <li class="admin-only" style="display: none;"><a href="#admin" class="nav-link admin-nav-btn" data-view="admin">Karkhana Admin ⚙️</a></li>
       </ul>
 
       <div class="nav-actions">
-        <!-- Profile quick status -->
-        <button class="nav-btn profile-btn" id="nav-profile-btn" title="Profile">
+        <button class="nav-btn profile-btn" id="nav-profile-btn" title="User Profile">
           <i data-lucide="user"></i>
-          <span class="profile-name-tag" id="profile-name-tag">Login</span>
+          <span class="profile-name-tag" id="profile-name-tag">Namaste, Login</span>
         </button>
 
-        <!-- Cart trigger -->
-        <button class="nav-btn cart-trigger" id="cart-trigger-btn" title="Open Cart">
+        <button class="nav-btn cart-trigger" id="cart-trigger-btn" title="Open Shahi Bag">
           <div class="cart-icon-wrapper">
             <i data-lucide="shopping-bag"></i>
             <span class="cart-badge" id="cart-badge-count">0</span>
           </div>
-          <span class="cart-total-tag" id="cart-total-tag">$0.00</span>
+          <span class="cart-total-tag" id="cart-total-tag">₹0.00</span>
         </button>
       </div>
     </nav>
   </header>
 
-  <!-- Main View Area (Dynamic Pages Mounted Here) -->
   <main id="app-view">
     <div class="page-loader">
       <div class="spinner"></div>
-      <p>Baking sweet digital experiences...</p>
+      <p>Simmering pure ghee and structural 3D sweet algorithms...</p>
     </div>
   </main>
 
-  <!-- Cart Drawer (Slide out) -->
   <div class="cart-drawer-overlay" id="cart-drawer-overlay"></div>
   <div class="cart-drawer" id="cart-drawer">
     <div class="cart-drawer-header">
-      <h3>Your Sweet Bag</h3>
+      <h3>Your Shahi Mithai Bag</h3>
       <button class="close-btn" id="close-cart-btn"><i data-lucide="x"></i></button>
     </div>
     
     <div class="cart-items" id="cart-items-list">
-      <!-- Dynamic list -->
       <div class="empty-cart-state">
-        <span class="empty-cart-icon">🍩</span>
-        <h4>Your bag is empty!</h4>
-        <p>Explore the studio and custom design your own sweets.</p>
-        <a href="#shop" class="btn btn-primary" id="cart-explore-btn">Browse Shop</a>
+        <span class="empty-cart-icon">🥣</span>
+        <h4>Your sweet box is empty!</h4>
+        <p>Step inside our 3D Karigar Studio to custom design premium sweets from scratch.</p>
+        <a href="#shop" class="btn btn-primary" id="cart-explore-btn">Explore The Bazaar</a>
       </div>
     </div>
 
@@ -106,125 +89,164 @@
       <div class="cart-price-summary">
         <div class="price-row">
           <span>Subtotal</span>
-          <span id="cart-subtotal">$0.00</span>
+          <span id="cart-subtotal">₹0.00</span>
         </div>
         <div class="price-row">
-          <span>Baking & Shipping</span>
-          <span class="highlight-free">FREE</span>
+          <span>Express Halwai Delivery</span>
+          <span class="highlight-free" style="color: #4e9f3d; font-weight: 600;">FREE</span>
         </div>
         <hr class="divider">
         <div class="price-row grand-total">
-          <span>Grand Total</span>
-          <span id="cart-grand-total">$0.00</span>
+          <span>Grand Total (Incl. GST)</span>
+          <span id="cart-grand-total" style="color: var(--accent-color); font-weight: 700;">₹0.00</span>
         </div>
       </div>
       <button class="btn btn-primary btn-checkout" id="checkout-btn">
-        <span>Proceed to Checkout</span>
+        <span>Proceed to Shahi Checkout</span>
         <i data-lucide="arrow-right"></i>
       </button>
     </div>
   </div>
 
-  <!-- Checkout Modal (Dynamic Checkout Form) -->
   <div class="modal-overlay" id="checkout-modal">
-    <div class="form-modal-card glass-panel" style="max-width: 600px; width: 95%; max-height: 90vh; overflow-y: auto;">
+    <div class="form-modal-card glass-panel" style="max-width: 650px; width: 95%; max-height: 90vh; overflow-y: auto;">
+      
       <div id="checkout-form-content">
-        <h3>Finalize Your Sweet Order</h3>
-        <p style="color: var(--text-muted); margin-bottom: 20px; font-size: 0.95rem;">Enter your shipping and payment details to send your custom sweets to the oven.</p>
+        <h3>Finalize Your Premium Mithai Order</h3>
+        <p style="color: var(--text-muted); margin-bottom: 20px; font-size: 0.95rem;">Provide your accurate logistics information below to stream your custom formulas straight to our dynamic automated kitchen lines.</p>
         
         <form id="checkout-billing-form">
-          <h4 style="color: var(--accent-color); font-size: 1rem; text-transform: uppercase; margin-bottom: 12px; border-bottom: 1px solid var(--border-light); padding-bottom: 5px;">1. Shipping Address</h4>
+          <h4 style="color: #ff9933; font-size: 1rem; text-transform: uppercase; margin-bottom: 12px; border-bottom: 1px solid var(--border-light); padding-bottom: 5px; letter-spacing: 0.5px;">1. Shipping & Delivery Address</h4>
           
           <div class="auth-form-group">
-            <label for="checkout-fullname">Full Name</label>
-            <input type="text" id="checkout-fullname" class="input-field" required placeholder="John Doe">
+            <label for="checkout-fullname">Full Name (Consignee Name)</label>
+            <input type="text" id="checkout-fullname" class="input-field" required placeholder="Aarav Sharma">
           </div>
           
           <div class="auth-form-group">
-            <label for="checkout-street">Street Address</label>
-            <input type="text" id="checkout-street" class="input-field" required placeholder="123 Sweet Lane">
+            <label for="checkout-street">Apartment, Villa, Street Address, and Landmark</label>
+            <input type="text" id="checkout-street" class="input-field" required placeholder="Flat 405, 4th Floor, Royal Heritage Heights, Near Lotus Temple">
           </div>
           
-          <div class="form-row-2">
+          <div class="form-row-2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
             <div class="auth-form-group">
-              <label for="checkout-city">City</label>
-              <input type="text" id="checkout-city" class="input-field" required placeholder="Confection City">
+              <label for="checkout-city">City / District</label>
+              <input type="text" id="checkout-city" class="input-field" required placeholder="New Delhi">
             </div>
-            <div class="form-row-2">
+            <div class="form-row-2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
               <div class="auth-form-group">
                 <label for="checkout-state">State</label>
-                <input type="text" id="checkout-state" class="input-field" required placeholder="CA">
+                <input type="text" id="checkout-state" class="input-field" required placeholder="Delhi">
               </div>
               <div class="auth-form-group">
-                <label for="checkout-zip">ZIP Code</label>
-                <input type="text" id="checkout-zip" class="input-field" required placeholder="90210">
+                <label for="checkout-zip">PIN Code (6-Digits)</label>
+                <input type="text" id="checkout-zip" class="input-field" required placeholder="110019" pattern="[0-9]{6}" title="Please enter a valid 6-digit Indian PIN Code">
               </div>
             </div>
           </div>
           
-          <h4 style="color: var(--accent-color); font-size: 1rem; text-transform: uppercase; margin-top: 25px; margin-bottom: 12px; border-bottom: 1px solid var(--border-light); padding-bottom: 5px;">2. Payment Info (Simulated)</h4>
+          <div class="auth-form-group" style="margin-top: 15px;">
+            <label for="checkout-phone">Mobile Number (For Delivery Updates)</label>
+            <div style="display: flex; gap: 5px;">
+              <span class="input-field" style="max-width: 50px; background: rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: center;">+91</span>
+              <input type="tel" id="checkout-phone" class="input-field" required placeholder="9876543210" pattern="[6-9][0-9]{9}" title="Please enter a valid 10-digit Indian Mobile Number" style="flex: 1;">
+            </div>
+          </div>
+          
+          <h4 style="color: #4e9f3d; font-size: 1rem; text-transform: uppercase; margin-top: 25px; margin-bottom: 12px; border-bottom: 1px solid var(--border-light); padding-bottom: 5px; letter-spacing: 0.5px;">2. Payment Gateway Connection (Simulated UPI / Card)</h4>
           
           <div class="auth-form-group">
-            <label for="checkout-card">Card Number</label>
-            <input type="text" id="checkout-card" class="input-field" required placeholder="4111 2222 3333 4444" pattern="[0-9\\s]{13,19}">
+            <label for="checkout-card">RuPay / Visa / MasterCard Credit or Debit Card</label>
+            <input type="text" id="checkout-card" class="input-field" required placeholder="4532 7112 8394 5643" pattern="[0-9\\s]{13,19}">
           </div>
           
-          <div class="form-row-2">
+          <div class="form-row-2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
             <div class="auth-form-group">
-              <label for="checkout-exp">Expiry (MM/YY)</label>
-              <input type="text" id="checkout-exp" class="input-field" required placeholder="12/28">
+              <label for="checkout-exp">Expiry Window (MM/YY)</label>
+              <input type="text" id="checkout-exp" class="input-field" required placeholder="08/29">
             </div>
             <div class="auth-form-group">
-              <label for="checkout-cvv">CVV</label>
-              <input type="password" id="checkout-cvv" class="input-field" required placeholder="123" maxlength="4">
+              <label for="checkout-cvv">CVV Verification Security Code</label>
+              <input type="password" id="checkout-cvv" class="input-field" required placeholder="***" maxlength="3">
             </div>
           </div>
           
-          <div class="checkout-summary-box glass-panel" style="margin-top: 25px; padding: 20px; border-radius: var(--border-radius-md); background: rgba(255,255,255,0.02);">
-            <div class="price-row" style="margin-bottom: 8px;">
-              <span>Total Price:</span>
-              <strong style="color: var(--accent-color); font-size: 1.25rem;" id="checkout-summary-total">$0.00</strong>
+          <div class="checkout-summary-box glass-panel" style="margin-top: 25px; padding: 20px; border-radius: var(--border-radius-md); background: rgba(255, 255, 255, 0.02); border-left: 4px solid #ff9933;">
+            <div class="price-row" style="margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;">
+              <span>Total Payable Amount:</span>
+              <strong style="color: #ff9933; font-size: 1.4rem;" id="checkout-summary-total">₹0.00</strong>
             </div>
-            <p style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.3;">By clicking place order, your custom sweets formulas will be synchronized with our Firestore pipeline.</p>
+            <p style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.4;">Upon order confirmation, your customized architectural sweet data parameters (vark thickness, base density, and saffron distribution index) will synchronize with our Cloud Firestore fulfillment stack.</p>
           </div>
 
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" id="btn-close-checkout">Back to Bag</button>
-            <button type="submit" class="btn btn-primary">
+          <div class="modal-footer" style="display: flex; justify-content: flex-end; gap: 15px; margin-top: 20px;">
+            <button type="button" class="btn btn-secondary" id="btn-close-checkout">Modify Bag</button>
+            <button type="submit" class="btn btn-primary" style="background: linear-gradient(135deg, #ff9933, #d4af37);">
               <i data-lucide="check-circle"></i>
-              <span>Place Your Order</span>
+              <span>Transmit Formula to Oven</span>
             </button>
           </div>
         </form>
       </div>
 
-      <!-- Checkout Processing Screen -->
       <div id="checkout-processing-content" style="display: none; text-align: center; padding: 40px 0;">
         <div class="chef-loader">
-          <span style="font-size: 4rem; display: inline-block; animation: bounce 1s infinite alternate;">👨‍🍳</span>
+          <span style="font-size: 4.5rem; display: inline-block; animation: bounce 1s infinite alternate;">👨‍🍳</span>
           <div class="spinner" style="margin: 20px auto;"></div>
         </div>
-        <h3 id="checkout-step-title" style="margin-bottom: 10px;">Sending instructions to the kitchen...</h3>
-        <p id="checkout-step-subtitle" style="color: var(--text-muted);">Synchronizing cloud databases</p>
+        <h3 id="checkout-step-title" style="margin-bottom: 10px; font-family: var(--font-display);">Calibrating Sweet Density & Sugar Syrup Pipelines...</h3>
+        <p id="checkout-step-subtitle" style="color: var(--text-muted);">Syncing secure transactional nodes to internal Firestore data channels</p>
       </div>
 
-      <!-- Checkout Success Screen -->
       <div id="checkout-success-content" style="display: none; text-align: center; padding: 40px 0;">
-        <span style="font-size: 5rem; display: block; margin-bottom: 20px; animation: scaleUp 0.5s ease;">🎉</span>
-        <h2 style="font-family: var(--font-display); font-size: 2.2rem; margin-bottom: 10px;">Order Confirmed!</h2>
-        <p style="color: var(--text-muted); margin-bottom: 15px;" id="checkout-success-order-id">Order ID: #12345</p>
-        <p style="max-width: 400px; margin: 0 auto 30px auto; line-height: 1.5;">
-          Our baking chefs have received your formulas! You can track the progress of your sweets in your user profile.
+        <span style="font-size: 5rem; display: block; margin-bottom: 20px; animation: scaleUp 0.5s ease;">📦</span>
+        <h2 style="font-family: var(--font-display); font-size: 2.4rem; margin-bottom: 10px; color: #4e9f3d;">Order Placed Successfully!</h2>
+        <p style="color: var(--text-muted); margin-bottom: 15px; font-weight: 600;" id="checkout-success-order-id">Order ID: M3D-98372-IN</p>
+        <p style="max-width: 450px; margin: 0 auto 30px auto; line-height: 1.6; font-size: 0.95rem;">
+          Our master chefs have intercepted your custom sweets architectural code templates! Production has initiated. Track real-time status updates directly inside your dynamic dashboard panel.
         </p>
-        <button class="btn btn-primary" id="btn-checkout-success-done">Done</button>
+        <button class="btn btn-primary" id="btn-checkout-success-done" style="min-width: 150px;">Dhanyavaad (Done)</button>
       </div>
     </div>
   </div>
 
-  <!-- Toast Notification Container -->
+  <section class="admin-location-map-section glass-panel" id="karkhana-location-module" style="margin: 40px auto; max-width: 1200px; width: 90%; padding: 25px; border-radius: var(--border-radius-lg); background: rgba(255,255,255,0.01); border: 1px solid var(--border-light);">
+    <div class="section-header-block" style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+      <div>
+        <h3 style="font-family: var(--font-display); font-size: 1.75rem; margin: 0 0 5px 0; color: #ff9933;">Our Flagship Luxury Karkhana</h3>
+        <p style="color: var(--text-muted); margin: 0; font-size: 0.9rem;">Live tracking anchor point injected dynamically by Administrative command dashboard systems.</p>
+      </div>
+      <div class="admin-badge" style="background: rgba(212,175,55,0.1); border: 1px solid #d4af37; color: #d4af37; padding: 6px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase;">
+        📍 Admin Verified Hub
+      </div>
+    </div>
+    
+    <div class="map-iframe-wrapper" style="position: relative; width: 100%; height: 380px; border-radius: var(--border-radius-md); overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.05);">
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1m12!1m3!1m2!1s0x390cfd1a45555555%3A0x7d6f5fdf7ab4c194!2sChandni+Chowk%2C+Old+Delhi%2C+Delhi!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfd1502f6e579%3A0xa19bfbe981d3408!2sChandni%20Chowk%2C%20Delhi!5e0!3m2!1sen!2sin!4v1717071234567!5m2!1sen!2sin" 
+        width="100%" 
+        height="100%" 
+        style="border:0; filter: grayscale(0.2) contrast(1.1) invert(0);" 
+        allowfullscreen="" 
+        loading="lazy" 
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+    
+    <div class="map-meta-footer" style="margin-top: 15px; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; font-size: 0.85rem; color: var(--text-muted);">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <i data-lucide="map-pin" style="color: #ff9933; width: 16px; height: 16px;"></i>
+        <span>Central Hub: Building 48, Heritage Street, Chandni Chowk, Delhi - 110006</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <i data-lucide="clock" style="color: #4e9f3d; width: 16px; height: 16px;"></i>
+        <span>Oven Pipeline Dispatches Active: 04:00 AM - 11:00 PM IST Daily</span>
+      </div>
+    </div>
+  </section>
+
   <div class="toast-container" id="toast-container"></div>
 
-  <!-- Main Script Injection -->
   <script type="module" src="app.js"></script>
 </body>
 </html>
